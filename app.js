@@ -44,12 +44,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
   
 });
 
-// Page opacity to 1
-gsap.to(".page-wrapper", {
-  opacity: 1,
-  duration: 0.7,
-  delay: 0.5,
-});
+
 
 ScrollTrigger.refresh(); // Ensure ScrollTrigger is aware of new DOM structure
 
