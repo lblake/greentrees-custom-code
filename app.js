@@ -41,6 +41,14 @@ btn.forEach((item) => {
 //Start of ScrollTrigger animations
 document.addEventListener('DOMContentLoaded', (event) => {
   gsap.registerPlugin(ScrollTrigger);
+  
+});
+
+// Page opacity to 1
+gsap.to(".page-wrapper", {
+  opacity: 1,
+  duration: 0.7,
+  delay: 0.5,
 });
 
 ScrollTrigger.refresh(); // Ensure ScrollTrigger is aware of new DOM structure
@@ -68,7 +76,6 @@ function createScrollTrigger(triggerElement, timeline) {
 const splitTextRight = new SplitType('[data-words-slide-from-right]', {
   types: 'words, chars',
 });
-
 window.onload = function () {
   // Animate each word sliding in from the right using ScrollTrigger
   $('[data-words-slide-from-right]').each(function () {
@@ -91,6 +98,34 @@ window.onload = function () {
     });
   });
 };
+
+// Split text into words and characters for elements with the data-words-slide-from-right attribute
+const splitTextLeft = new SplitType('[data-words-slide-from-left]', {
+  types: 'words, chars',
+});
+window.onload = function () {
+  // Animate each word sliding in from the right using ScrollTrigger
+  $('[data-words-slide-from-left]').each(function () {
+    let tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: $(this),
+        start: 'top 80%', // Animation starts when the top of the element hits 80% of the viewport
+        end: 'top 50%', // Animation ends when the top of the element hits 50% of the viewport
+        toggleActions: 'play none none reset', // Controls when the animation should play or reset
+      },
+    });
+
+    // Animate words sliding from the right
+    tl.from($(this).find('.word'), {
+      opacity: 0,
+      x: '-1em', // Slide in from 1em to the left
+      duration: 1.2,
+      ease: 'power2.out',
+      stagger: { amount: 0.6 }, // Stagger the animation for a smoother effect
+    });
+  });
+};
+
 
 // Split text into words and characters for elements with the data-words-slide-up attribute
 const splitText = new SplitType('[data-words-slide-up]', {
@@ -137,3 +172,4 @@ $(window).on('load', function() {
     });
   });
 });
+
