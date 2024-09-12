@@ -4,7 +4,7 @@ window.Webflow ||= [];
 window.Webflow.push(() => {});
 
 //Social image animations on homepage
-$('.social-img').hover(
+$('.social-img, .event-social-icon').hover(
   function () {
     // On mouse enter (scale up from original)
     gsap.to($(this), {
@@ -67,10 +67,14 @@ function createScrollTrigger(triggerElement, timeline) {
   });
 }
 
-// Split text into words and characters for elements with the data-words-slide-from-right attribute
+// Split text into words and characters for elements with the data-words-slide-from-right and data-words-slide-from-left attributes
 const splitTextRight = new SplitType('[data-words-slide-from-right]', {
   types: 'words, chars',
 });
+const splitTextLeft = new SplitType('[data-words-slide-from-left]', {
+  types: 'words, chars',
+});
+
 window.onload = function () {
   // Animate each word sliding in from the right using ScrollTrigger
   $('[data-words-slide-from-right]').each(function () {
@@ -92,14 +96,8 @@ window.onload = function () {
       stagger: { amount: 0.6 }, // Stagger the animation for a smoother effect
     });
   });
-};
 
-// Split text into words and characters for elements with the data-words-slide-from-right attribute
-const splitTextLeft = new SplitType('[data-words-slide-from-left]', {
-  types: 'words, chars',
-});
-window.onload = function () {
-  // Animate each word sliding in from the right using ScrollTrigger
+  // Animate each word sliding in from the left using ScrollTrigger
   $('[data-words-slide-from-left]').each(function () {
     let tl = gsap.timeline({
       scrollTrigger: {
@@ -110,7 +108,7 @@ window.onload = function () {
       },
     });
 
-    // Animate words sliding from the right
+    // Animate words sliding from the left
     tl.from($(this).find('.word'), {
       opacity: 0,
       x: '-1em', // Slide in from 1em to the left
