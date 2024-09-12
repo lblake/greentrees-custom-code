@@ -29,9 +29,9 @@ btn.forEach((item) => {
   let span = item.querySelector('.button-text'); // Corrected class selector
   let tl = gsap.timeline({ paused: true });
 
-  tl.to(span, { duration: 0.2, yPercent: -150, ease: 'power2.in' });
+  tl.to(span, { duration: 0.3, yPercent: -150, ease: 'power2.in' });
   tl.set(span, { yPercent: 150 });
-  tl.to(span, { duration: 0.2, yPercent: 0 });
+  tl.to(span, { duration: 0.3, yPercent: 0 });
 
   // Trigger text animation on hover
   item.addEventListener('mouseenter', () => tl.play(0));
@@ -115,5 +115,25 @@ $('[data-words-slide-up]').each(function () {
     duration: 0.5,
     ease: 'back.out(2)',
     stagger: { amount: 0.5 }, // Stagger animation for a smoother effect
+  });
+});
+
+
+//Slide from side animations
+$(window).on('load', function() {
+  $(".slide_from-right-side").each(function (index) {
+    let slideFromSide = gsap.timeline({
+      scrollTrigger: {
+        trigger: $(this),
+        start: "top 80%",
+      },
+    });
+    slideFromSide.from($(this).children(), {
+      x: 150, // Changed from -150 to 150 for right-side animation
+      opacity: 0,
+      stagger: 0.1,
+      duration: 0.8,
+      delay: 0.4,
+    });
   });
 });
