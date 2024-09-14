@@ -28,7 +28,7 @@ function createScrollTrigger(triggerElement, timeline) {
   ScrollTrigger.create({
     trigger: triggerElement,
     start: 'top 60%',
-    end: 'bottom 60%',
+    end: 'bottom 80%',
     markers: true,
     onEnter: () => timeline.play(),
     onLeave: () => timeline.pause(),
