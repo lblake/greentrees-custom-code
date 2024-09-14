@@ -8,8 +8,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
   gsap.registerPlugin(ScrollTrigger);
 });
 
-ScrollTrigger.refresh(); // Ensure ScrollTrigger is aware of new DOM structure
-
 // Link timelines to scroll position
 function createScrollTrigger(triggerElement, timeline) {
   // Trigger for the top of the page
@@ -87,6 +85,14 @@ const splitTextRight = new SplitType('[data-words-slide-from-right]', {
 const splitTextLeft = new SplitType('[data-words-slide-from-left]', {
   types: 'words, chars',
 });
+// Split text into words and characters for elements with the data-words-slide-up attribute
+const splitText = new SplitType('[data-words-slide-up]', {
+  types: 'words, chars',
+});
+// Split text into words and characters for elements with the data-words-slide-up attribute
+const splitTextRandom = new SplitType('[data-letters-fade-in-random]', {
+  types: 'words, chars',
+});
 
 window.onload = function () {
   // Animate each word sliding in from the right using ScrollTrigger
@@ -132,11 +138,6 @@ window.onload = function () {
   });
 };
 
-// Split text into words and characters for elements with the data-words-slide-up attribute
-const splitText = new SplitType('[data-words-slide-up]', {
-  types: 'words, chars',
-});
-
 // Animate each word with a slide-up effect using ScrollTrigger
 $('[data-words-slide-up]').each(function () {
   let tl = gsap.timeline({
@@ -158,6 +159,25 @@ $('[data-words-slide-up]').each(function () {
   });
 });
 
+$('[data-letters-fade-in-random]').each(function () {
+  let tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: $(this),
+      start: 'top 80%', // Adjust this based on when you'd like the animation to start
+      end: 'top 50%', // Adjust when to end the animation
+      toggleActions: 'play none none reset', // Change the actions as needed
+    },
+  });
+
+  // Animate the characters with a fade-in effect in random order
+  tl.from($(this).find('.char'), {
+    opacity: 0,
+    duration: 0.07,
+    ease: 'power1.out',
+    stagger: { amount: 0.6, from: 'random' },
+  });
+});
+
 //Slide from side animations
 $(window).on('load', function () {
   $('.slide_from-right-side').each(function (index) {
@@ -176,3 +196,5 @@ $(window).on('load', function () {
     });
   });
 });
+
+ScrollTrigger.refresh(); // Ensure ScrollTrigger is aware of new DOM structure
