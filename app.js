@@ -3,7 +3,49 @@
 window.Webflow ||= [];
 window.Webflow.push(() => {});
 
-//Social image animations on homepage
+//Start of ScrollTrigger animations
+document.addEventListener('DOMContentLoaded', (event) => {
+  gsap.registerPlugin(ScrollTrigger);
+});
+
+ScrollTrigger.refresh(); // Ensure ScrollTrigger is aware of new DOM structure
+
+// Link timelines to scroll position
+function createScrollTrigger(triggerElement, timeline) {
+  // Trigger for the top of the page
+  ScrollTrigger.create({
+    trigger: triggerElement,
+    start: 'top top',
+    end: 'bottom bottom',
+    markers: true,
+    onLeaveBack: () => {
+      timeline.progress(0);
+      timeline.pause();
+    },
+  });
+
+  // Trigger for entering the viewport (e.g., when the element is in the center of the page)
+  ScrollTrigger.create({
+    trigger: triggerElement,
+    start: 'top 60%',
+    end: 'bottom 60%',
+    markers: true,
+    onEnter: () => timeline.play(),
+    onLeave: () => timeline.pause(),
+  });
+
+  // Trigger for when the element is scrolled out of view from the bottom
+  ScrollTrigger.create({
+    trigger: triggerElement,
+    start: 'bottom bottom',
+    markers: true,
+    onLeave: () => {
+      timeline.pause();
+    },
+  });
+}
+
+//Social image animations
 $('.social-img, .event-social-icon').hover(
   function () {
     // On mouse enter (scale up from original)
@@ -37,35 +79,6 @@ btn.forEach((item) => {
   item.addEventListener('mouseenter', () => tl.play(0));
   item.addEventListener('mouseleave', () => tl.reverse()); // Reverse on mouseleave
 });
-
-//Start of ScrollTrigger animations
-document.addEventListener('DOMContentLoaded', (event) => {
-  gsap.registerPlugin(ScrollTrigger);
-  
-});
-
-
-
-ScrollTrigger.refresh(); // Ensure ScrollTrigger is aware of new DOM structure
-
-// Link timelines to scroll position
-function createScrollTrigger(triggerElement, timeline) {
-  ScrollTrigger.create({
-    trigger: triggerElement,
-    start: 'top top',
-    markers: true,
-    onLeaveBack: () => {
-      timeline.progress(0);
-      timeline.pause();
-    },
-  });
-  ScrollTrigger.create({
-    trigger: triggerElement,
-    start: 'top 60%',
-    markers: true,
-    onEnter: () => timeline.play(),
-  });
-}
 
 // Split text into words and characters for elements with the data-words-slide-from-right and data-words-slide-from-left attributes
 const splitTextRight = new SplitType('[data-words-slide-from-right]', {
@@ -119,7 +132,6 @@ window.onload = function () {
   });
 };
 
-
 // Split text into words and characters for elements with the data-words-slide-up attribute
 const splitText = new SplitType('[data-words-slide-up]', {
   types: 'words, chars',
@@ -146,14 +158,13 @@ $('[data-words-slide-up]').each(function () {
   });
 });
 
-
 //Slide from side animations
-$(window).on('load', function() {
-  $(".slide_from-right-side").each(function (index) {
+$(window).on('load', function () {
+  $('.slide_from-right-side').each(function (index) {
     let slideFromSide = gsap.timeline({
       scrollTrigger: {
         trigger: $(this),
-        start: "top 80%",
+        start: 'top 80%',
       },
     });
     slideFromSide.from($(this).children(), {
@@ -165,4 +176,3 @@ $(window).on('load', function() {
     });
   });
 });
-
