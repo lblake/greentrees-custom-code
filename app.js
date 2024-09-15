@@ -200,5 +200,5 @@ $(window).on('load', function () {
 // Add a slight delay and refresh ScrollTrigger after DOM changes
 setTimeout(() => {
   ScrollTrigger.refresh();
-}, 500); // You can adjust this delay if needed
+}, 1000); // You can adjust this delay if needed
 });
