@@ -78,21 +78,28 @@ btn.forEach((item) => {
   item.addEventListener('mouseleave', () => tl.reverse()); // Reverse on mouseleave
 });
 
-// Split text into words and characters for elements with the data-words-slide-from-right and data-words-slide-from-left attributes
-const splitTextRight = new SplitType('[data-words-slide-from-right]', {
-  types: 'words, chars',
-});
-const splitTextLeft = new SplitType('[data-words-slide-from-left]', {
-  types: 'words, chars',
-});
-// Split text into words and characters for elements with the data-words-slide-up attribute
-const splitText = new SplitType('[data-words-slide-up]', {
-  types: 'words, chars',
-});
-// Split text into words and characters for elements with the data-words-slide-up attribute
-const splitTextRandom = new SplitType('[data-letters-fade-in-random]', {
-  types: 'words, chars',
-});
+function runSplit() {
+  // Split text into words and characters for elements with the data-words-slide-from-right and data-words-slide-from-left attributes
+  const splitTextRight = new SplitType('[data-words-slide-from-right]', {
+    types: 'words, chars',
+  });
+  const splitTextLeft = new SplitType('[data-words-slide-from-left]', {
+    types: 'words, chars',
+  });
+  // Split text into words and characters for elements with the data-words-slide-up attribute
+  const splitText = new SplitType('[data-words-slide-up]', {
+    types: 'words, chars',
+  });
+  // Split text into words and characters for elements with the data-words-slide-up attribute
+  const splitTextRandom = new SplitType('[data-letters-fade-in-random]', {
+    types: 'words, chars',
+  });
+  const splitTextStagger = new SplitType('[data-stagger-link]', {
+    types: 'words, chars',
+  });
+}
+
+runSplit();
 
 window.onload = function () {
   // Animate each word sliding in from the right using ScrollTrigger
@@ -163,7 +170,7 @@ $('[data-letters-fade-in-random]').each(function () {
   let tl = gsap.timeline({
     scrollTrigger: {
       trigger: $(this),
-      start: 'top bottom', // Adjust this based on when you'd like the animation to start
+      start: 'top 80%', // Adjust this based on when you'd like the animation to start
       end: 'top 60%', // Adjust when to end the animation
       //toggleActions: 'play none none reset', // Change the actions as needed
     },
@@ -196,9 +203,43 @@ $(window).on('load', function () {
     });
   });
 
+  // ————— Update on window resize
+  let windowWidth = $(window).innerWidth();
+  window.addEventListener('resize', function () {
+    if (windowWidth !== $(window).innerWidth()) {
+      windowWidth = $(window).innerWidth();
+      splitText.revert();
+      runSplit();
+    }
+  });
 
-// Add a slight delay and refresh ScrollTrigger after DOM changes
-setTimeout(() => {
-  ScrollTrigger.refresh();
-}, 1000); // You can adjust this delay if needed
+  // Stagger animation for links
+  const staggerLinks = document.querySelectorAll('[data-stagger-link]');
+  staggerLinks.forEach((link) => {
+    const letters = link.querySelectorAll('[data-stagger-link-text] .char');
+    link.addEventListener('mouseenter', function () {
+      gsap.to(letters, {
+        scale: 1.2,
+        opacity: 0.5,
+        duration: 0.4,
+        ease: 'power4.inOut',
+        stagger: { each: 0.03, from: 'start' },
+        overwrite: true,
+      });
+    });
+    link.addEventListener('mouseleave', function () {
+      gsap.to(letters, {
+        scale: 1,
+        opacity: 1,
+        duration: 0.3,
+        ease: 'power4.inOut',
+        stagger: { each: 0.03, from: 'random' },
+      });
+    });
+  });
+
+  // Add a slight delay and refresh ScrollTrigger after DOM changes
+  setTimeout(() => {
+    ScrollTrigger.refresh();
+  }, 1000); // You can adjust this delay if needed
 });
