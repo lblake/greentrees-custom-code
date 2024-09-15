@@ -27,7 +27,7 @@ function createScrollTrigger(triggerElement, timeline) {
     trigger: triggerElement,
     start: 'top 60%',
     end: 'bottom 80%',
-    markers: true,
+    //markers: true,
     onEnter: () => timeline.play(),
     onLeave: () => timeline.pause(),
   });
@@ -36,7 +36,7 @@ function createScrollTrigger(triggerElement, timeline) {
   ScrollTrigger.create({
     trigger: triggerElement,
     start: 'bottom bottom',
-    markers: true,
+    //markers: true,
     onLeave: () => {
       timeline.pause();
     },
@@ -163,8 +163,8 @@ $('[data-letters-fade-in-random]').each(function () {
   let tl = gsap.timeline({
     scrollTrigger: {
       trigger: $(this),
-      start: 'top 80%', // Adjust this based on when you'd like the animation to start
-      end: 'top 50%', // Adjust when to end the animation
+      start: 'top 90%', // Adjust this based on when you'd like the animation to start
+      end: 'bottom 10%', // Adjust when to end the animation
       toggleActions: 'play none none reset', // Change the actions as needed
     },
   });
