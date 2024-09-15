@@ -195,6 +195,10 @@ $(window).on('load', function () {
       delay: 0.4,
     });
   });
-});
 
-ScrollTrigger.refresh(); // Ensure ScrollTrigger is aware of new DOM structure
+
+// Add a slight delay and refresh ScrollTrigger after DOM changes
+setTimeout(() => {
+  ScrollTrigger.refresh();
+}, 500); // You can adjust this delay if needed
+});
