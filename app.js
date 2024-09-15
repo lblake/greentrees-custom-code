@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
   gsap.registerPlugin(ScrollTrigger);
 });
 
+alert("This is a test!!")
 // Link timelines to scroll position
 function createScrollTrigger(triggerElement, timeline) {
   // Trigger for the top of the page
