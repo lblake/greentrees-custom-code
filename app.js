@@ -145,7 +145,7 @@ $('[data-words-slide-up]').each(function () {
       trigger: $(this),
       start: 'top 80%', // Start the animation when the top of the element hits 80% of the viewport
       end: 'top 50%', // End the animation when the top of the element hits 50% of the viewport
-      toggleActions: 'play none none reset', // Controls when to play or reset the animation
+      //toggleActions: 'play none none reset', // Controls when to play or reset the animation
     },
   });
 
@@ -165,7 +165,7 @@ $('[data-letters-fade-in-random]').each(function () {
       trigger: $(this),
       start: 'top 90%', // Adjust this based on when you'd like the animation to start
       end: 'bottom 10%', // Adjust when to end the animation
-      toggleActions: 'play none none reset', // Change the actions as needed
+      //toggleActions: 'play none none reset', // Change the actions as needed
     },
   });
 
