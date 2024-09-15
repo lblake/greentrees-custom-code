@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
   gsap.registerPlugin(ScrollTrigger);
 });
 
-alert("This is a test!!")
 // Link timelines to scroll position
 function createScrollTrigger(triggerElement, timeline) {
   // Trigger for the top of the page
@@ -16,7 +15,7 @@ function createScrollTrigger(triggerElement, timeline) {
     trigger: triggerElement,
     start: 'top top',
     end: 'bottom bottom',
-    markers: true,
+    //markers: true,
     onLeaveBack: () => {
       timeline.progress(0);
       timeline.pause();
@@ -103,7 +102,7 @@ window.onload = function () {
         trigger: $(this),
         start: 'top 80%', // Animation starts when the top of the element hits 80% of the viewport
         end: 'top 50%', // Animation ends when the top of the element hits 50% of the viewport
-        toggleActions: 'play none none reset', // Controls when the animation should play or reset
+        //toggleActions: 'play none none reset', // Controls when the animation should play or reset
       },
     });
 
@@ -124,7 +123,7 @@ window.onload = function () {
         trigger: $(this),
         start: 'top 80%', // Animation starts when the top of the element hits 80% of the viewport
         end: 'top 50%', // Animation ends when the top of the element hits 50% of the viewport
-        toggleActions: 'play none none reset', // Controls when the animation should play or reset
+        //toggleActions: 'play none none reset', // Controls when the animation should play or reset
       },
     });
 
