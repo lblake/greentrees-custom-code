@@ -208,7 +208,7 @@ $(window).on('load', function () {
   window.addEventListener('resize', function () {
     if (windowWidth !== $(window).innerWidth()) {
       windowWidth = $(window).innerWidth();
-      splitText.revert();
+      splitTextStagger.revert();
       runSplit();
     }
   });
