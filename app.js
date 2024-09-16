@@ -3,6 +3,8 @@
 window.Webflow ||= [];
 window.Webflow.push(() => {});
 
+let splitTextStagger; // Declare splitTextStagger globally
+
 //Start of ScrollTrigger animations
 document.addEventListener('DOMContentLoaded', (event) => {
   gsap.registerPlugin(ScrollTrigger);
@@ -208,8 +210,13 @@ $(window).on('load', function () {
   window.addEventListener('resize', function () {
     if (windowWidth !== $(window).innerWidth()) {
       windowWidth = $(window).innerWidth();
-      splitTextStagger.revert();
-      runSplit();
+
+      if (splitTextStagger) {
+        // Check if splitTextStagger is defined
+        splitTextStagger.revert(); // Revert the animation
+      }
+
+      runSplit(); // Reapply the split text animation
     }
   });
 
