@@ -172,8 +172,8 @@ $('[data-letters-fade-in-random]').each(function () {
   let tl = gsap.timeline({
     scrollTrigger: {
       trigger: $(this),
-      start: 'top 80%', // Adjust this based on when you'd like the animation to start
-      end: 'top 60%', // Adjust when to end the animation
+      start: 'top 20%', // Adjust this based on when you'd like the animation to start
+      end: 'bottom 20%', // Adjust when to end the animation: ;
       //toggleActions: 'play none none reset', // Change the actions as needed
     },
   });
