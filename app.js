@@ -82,19 +82,29 @@ btn.forEach((item) => {
 
 
 // Animate all footer button link text on hover on all pages
-const btnLinks = gsap.utils.toArray('.button-link');
-btnSecondary.forEach((item) => {
-  let span = item.querySelector('.button-text'); // Corrected class selector
-  let tl = gsap.timeline({ paused: true });
+const btnLinks = document.querySelectorAll('.button-link'); // Select all anchor links
+btnLinks.forEach((item) => {
+  let span = item.querySelector('.button-text.is-adjusted'); // Find the span inside the link
+  if (span) {
+    console.log(span);
+    let tl = gsap.timeline({ paused: true });
 
-  tl.to(span, { duration: 0.3, yPercent: -150, ease: 'power2.in' });
-  tl.set(span, { yPercent: 150 });
-  tl.to(span, { duration: 0.3, yPercent: 0 });
+    tl.to(span, { duration: 0.3, yPercent: -150, ease: 'power2.in' });
+    tl.set(span, { yPercent: 150 });
+    tl.to(span, { duration: 0.3, yPercent: 0 });
 
-  // Trigger text animation on hover
-  item.addEventListener('mouseenter', () => tl.play(0));
-  item.addEventListener('mouseleave', () => tl.reverse()); // Reverse on mouseleave
+    // Prevent the default anchor link behavior on click
+    item.addEventListener('click', (e) => {
+      e.preventDefault();
+    });
+
+    // Trigger text animation on hover
+    item.addEventListener('mouseenter', () => tl.play(0));
+    item.addEventListener('mouseleave', () => tl.reverse());
+  }
 });
+
+
 
 function runSplit() {
   // Split text into words and characters for elements with the data-words-slide-from-right and data-words-slide-from-left attributes
