@@ -81,8 +81,8 @@ btn.forEach((item) => {
 });
 
 
-// Animate all secondary button text on hover on all pages
-const btnSecondary = gsap.utils.toArray('.button-secondary');
+// Animate all footer button link text on hover on all pages
+const btnLinks = gsap.utils.toArray('.button-link');
 btnSecondary.forEach((item) => {
   let span = item.querySelector('.button-text'); // Corrected class selector
   let tl = gsap.timeline({ paused: true });
