@@ -65,9 +65,25 @@ $('.social-img, .event-social-icon').hover(
   }
 );
 
-// Animate button text on hover on all pages
+// Animate all primary button text on hover on all pages
 const btn = gsap.utils.toArray('.button-primary');
 btn.forEach((item) => {
+  let span = item.querySelector('.button-text'); // Corrected class selector
+  let tl = gsap.timeline({ paused: true });
+
+  tl.to(span, { duration: 0.3, yPercent: -150, ease: 'power2.in' });
+  tl.set(span, { yPercent: 150 });
+  tl.to(span, { duration: 0.3, yPercent: 0 });
+
+  // Trigger text animation on hover
+  item.addEventListener('mouseenter', () => tl.play(0));
+  item.addEventListener('mouseleave', () => tl.reverse()); // Reverse on mouseleave
+});
+
+
+// Animate all secondary button text on hover on all pages
+const btnSecondary = gsap.utils.toArray('.button-secondary');
+btnSecondary.forEach((item) => {
   let span = item.querySelector('.button-text'); // Corrected class selector
   let tl = gsap.timeline({ paused: true });
 
